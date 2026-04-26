@@ -1,0 +1,30 @@
+* {
+  margin:0;
+  padding:0;
+}
+
+:root {
+  --bg: #0F172A;
+  --second-bg: #1E293B;
+  --cards-notes: #3F4C63;
+  --hover: #334155;
+  --main-text: #E2E8F0;
+  --muted-text: #94A3B8;
+  --main-highlight: #3B82F6;
+  --yellow-highlight: #FACC15;
+}
+
+html, body {
+  font-size: 100%;
+  height: 100%;
+}
+
+body{
+  background-color: var(--bg);
+  padding: 1rem;
+}
+ 
+.main-content{
+   display: grid;
+  grid-template-columns: 1fr 1fr;
+}

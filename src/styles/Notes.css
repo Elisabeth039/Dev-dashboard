@@ -1,0 +1,6 @@
+.notes-container{
+    background-color: var(--second-bg);
+    grid-column: 2;
+    height: 100vh;
+    border-radius: 50px;
+}
