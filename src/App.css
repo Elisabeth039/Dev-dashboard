@@ -6,11 +6,11 @@
 :root {
   --bg: #0F172A;
   --second-bg: #1E293B;
-  --cards-notes: #3F4C63;
+  --cards: #3F4C63;
   --hover: #334155;
-  --main-text: #E2E8F0;
+  --text: #E2E8F0;
   --muted-text: #94A3B8;
-  --main-highlight: #3B82F6;
+  --highlight: #3B82F6;
   --yellow-highlight: #FACC15;
 }
 
@@ -25,6 +25,6 @@ body{
 }
  
 .main-content{
-   display: grid;
+  display: grid;
   grid-template-columns: 1fr 1fr;
 }
