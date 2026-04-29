@@ -8,7 +8,7 @@
 
 .search{
     color: var(--text);
-    height: 2.2rem;
+    height:2.2rem;
     width: 98%;
     font-size: 1.1rem;
     border-radius: 20px;
@@ -29,7 +29,7 @@
 
 .folders{
     display: flex;
-    gap: 0.8rem;
+    gap:0.8rem;
 }
 
 .pill{
@@ -54,20 +54,123 @@
 }
 
 .add-folder-panel {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    background: var(--cards);
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    gap: 8px;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: var(--cards);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
 }
 
 .notes-section{
     background-color: aqua;
+    display: flex;
     height: 85%;
     width: 95%;
     justify-self: center;
     border-radius: 20px;
+}
+
+.note-list{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+}
+
+.note{
+    width: 95%;
+    height: 15%;
+    padding: 0.5rem;
+    margin-bottom: 1rem ;
+    background-color: var(--cards);
+    border-radius: 15px;
+    color: var(--text);
+    font-size: 1.5rem;
+    word-break: break-word;     
+    overflow-wrap: break-word;
+}
+
+.add-note-btn{
+    background-color: black;
+    display: flex;
+    position: absolute;
+    right: 100px;
+    bottom: 20px;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 100px;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--text);
+}
+
+.note-area{
+    background-color: var(--cards);
+    width: 100%;
+    border-radius: 20px;
+}
+
+.title{
+    width: 100%;
+    min-height: 12%;
+    display: flex;
+    gap: 2rem;
+    
+}
+
+.close-note{
+    color: var(--text);
+    display: flex;
+    width: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5rem 0 0 0.5rem;
+    align-content: center;
+    align-items: center;
+    overflow-wrap: break-word;
+}
+
+.note-title{
+    color: var(--text);
+    font-size: 1.3rem;
+    font-weight: 600;
+    width: 90%;
+    background: none;
+    border: none;
+    outline: none;
+    margin-top: 1rem;
+    resize: none;
+}
+
+.note-title::placeholder{
+    color: var(--muted-text);
+}
+
+.note-content{
+    color: var(--text);
+    width: 95%;
+    height: 82%;
+    border-radius: 15px;
+    padding: 1rem 1rem 0;
+    background: none;
+    border: none;
+    outline: none;
+    resize: none;
+}
+
+.note-content::placeholder{
+    color: var(--muted-text);
+}
+
+.last-change{
+    border-bottom: 2px solid var(--highlight);
+    padding-left: 1rem;
+    color: var(--muted-text);
 }
