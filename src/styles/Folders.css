@@ -1,0 +1,61 @@
+.search{
+    color: var(--text);
+    height:2.2rem;
+    width: 98%;
+    font-size: 1.1rem;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--cards);
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+    outline: none;
+}
+
+.search::placeholder{
+    color: var(--muted-text);
+}
+
+.search:hover{
+    background-color: var(--hover);
+    transition: all ease 0.1s;
+}
+
+.folders{
+    display: flex;
+    gap:0.8rem;
+}
+
+.pill{
+    font-size: 1rem;
+    display: flex;
+    background-color: var(--cards);
+    height: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.7rem;
+    border: none;
+    border-radius: 20px;
+    color: var(--text);
+    align-items: center;
+}
+
+.pill:hover{
+    background-color: var(--hover);
+    transition: all ease 0.1s;
+}
+
+.pill.active{
+    box-shadow: 3px 3px 3px var(--highlight);
+    transition: all ease 0.2s;
+}
+
+.add-folder-panel {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: var(--cards);
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 8px;
+}
+

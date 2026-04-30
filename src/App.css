@@ -7,7 +7,7 @@
   --bg: #0F172A;
   --second-bg: #1E293B;
   --cards: #3F4C63;
-  --hover: #334155;
+  --hover: #2a3b54;
   --text: #E2E8F0;
   --muted-text: #94A3B8;
   --highlight: #3B82F6;
@@ -27,4 +27,12 @@ body{
 .main-content{
   display: grid;
   grid-template-columns: 1fr 1fr;
+}
+
+.notes-container{
+    background-color: var(--second-bg);
+    grid-column: 2;
+    height: 100vh;
+    padding: 1.25rem;
+    border-radius: 50px;
 }

@@ -1,71 +1,4 @@
-.notes-container{
-    background-color: var(--second-bg);
-    grid-column: 2;
-    height: 100vh;
-    padding: 1.25rem;
-    border-radius: 50px;
-}
-
-.search{
-    color: var(--text);
-    height:2.2rem;
-    width: 98%;
-    font-size: 1.1rem;
-    border-radius: 20px;
-    border: none;
-    background-color: var(--cards);
-    margin-bottom: 1rem;
-    padding: 0 0.5rem;
-    outline: none;
-}
-
-.search::placeholder{
-    color: var(--muted-text);
-}
-
-.search:hover{
-    background-color: var(--hover);
-}
-
-.folders{
-    display: flex;
-    gap:0.8rem;
-}
-
-.pill{
-    font-size: 1rem;
-    display: flex;
-    background-color: var(--cards);
-    height: 2rem;
-    margin-bottom: 1rem;
-    padding: 0.7rem;
-    border: none;
-    border-radius: 20px;
-    color: var(--text);
-    align-items: center;
-}
-
-.pill:hover{
-    background-color: var(--hover);
-}
-
-.pill.active{
-    box-shadow: 3px 3px 3px var(--highlight);
-}
-
-.add-folder-panel {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  background: var(--cards);
-  padding: 10px;
-  border-radius: 10px;
-  display: flex;
-  gap: 8px;
-}
-
 .notes-section{
-    background-color: aqua;
     display: flex;
     height: 85%;
     width: 95%;
@@ -78,19 +11,31 @@
     flex-direction: column;
     width: 100%;
     align-items: center;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.note-list::-webkit-scrollbar {
+    display: none;
 }
 
 .note{
     width: 95%;
-    height: 15%;
+    height: 12%;
     padding: 0.5rem;
     margin-bottom: 1rem ;
     background-color: var(--cards);
     border-radius: 15px;
     color: var(--text);
     font-size: 1.5rem;
+    flex-shrink: 0;
     word-break: break-word;     
     overflow-wrap: break-word;
+}
+
+.note:hover{
+    background-color: var(--hover);
+    transition: all ease 0.1s;
 }
 
 .add-note-btn{
@@ -107,6 +52,11 @@
     font-size: 3.5rem;
     font-weight: 900;
     color: var(--text);
+    transition: all ease 0.2s;
+}
+
+.add-note-btn:hover{
+    box-shadow: 2px 2px 10px var(--highlight);
 }
 
 .note-area{
@@ -116,11 +66,11 @@
 }
 
 .title{
+    position: relative;
     width: 100%;
     min-height: 12%;
     display: flex;
     gap: 2rem;
-    
 }
 
 .close-note{
@@ -131,7 +81,7 @@
     border: none;
     font-size: 2rem;
     font-weight: 600;
-    padding: 0.5rem 0 0 0.5rem;
+    padding: 0 0 0 0.5rem;
     align-content: center;
     align-items: center;
     overflow-wrap: break-word;
@@ -151,6 +101,48 @@
 
 .note-title::placeholder{
     color: var(--muted-text);
+}
+
+.three-dots{
+    background:none;
+    border:none;
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--muted-text);
+    margin: 0.5rem;
+}
+
+.three-dots:hover{
+    color: var(--text);
+}
+
+.menu{
+    position: absolute;
+    top: 70%;
+    right: 2%;
+    background-color: var(--second-bg);
+    border-radius: 10px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap:0.5rem;
+}
+
+.menu-btn{
+    width: 7rem;
+    height: 2rem;
+    background:none;
+    color: var(--text);
+    box-shadow: 2px 2px 2px var(--highlight);
+    border: 1px solid var(--highlight);
+    border-radius: 10px;
+}
+
+.menu-btn:hover{
+    background-color: var(--hover);
+    box-shadow: inset 2px 2px 2px var(--highlight);
 }
 
 .note-content{
