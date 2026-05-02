@@ -20,28 +20,22 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
         setIsOpen(false);
     }; 
 
+    const deleteFolder = (id) =>{
+        setFolders(prev => prev.filter(folder => folder.id !== id));
+        setNotes(prev => prev.filter(n => n.folder !== id));
+      if (id === activeFolder) {
+        setActiveFolder(1);
+      }
+    };
+
     return(
         <div className='folders-container'>
             <input
             type='text' placeholder=' ⌕ Search notes...' className='search'> 
             </input>
             <div className='folders'>
-                <button 
-                 onClick={() => setIsOpen(true)}
-                 className='pill'
-                 >🗀</button>
-                {folders.map(folder =>(
-                    <button key={folder.id} className={`pill ${
-                        activeFolder === folder.name ? "active" : ""
-                    }`}
-                    onClick={() => setActiveFolder(folder.name)}>
-                        {folder.name}
-                    </button>
-                ))}
-            </div>
-            
-            { isOpen && (
-        <div className='add-folder-panel'>
+              { isOpen ? (
+        <div className='add-folder-pill'>
             <input
             type='text'
             value={input}
@@ -50,7 +44,25 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
             />
             <button className='add-folder' onClick={addFolder}>Add folder</button>
         </div>
-    )}
+            ) : (
+                <button 
+                 onClick={() => setIsOpen(true)}
+                 className='pill'
+                 >🗀</button>
+            )}
+                {folders.map(folder =>(
+                  <div key={folder.id} className={`pill ${
+                        activeFolder === folder.id ? "active" : ""
+                    }`}>
+                    <p onClick={() => setActiveFolder(folder.id)} className='folder-btn'>
+                        {folder.name}
+                    </p>
+                    { folder.id !== 1 && (
+                    <button className='folder-close-btn' onClick={() => deleteFolder(folder.id)}>✕</button>
+                    )}
+                  </div>
+                ))}
+            </div>
         </div>
     )
 }
