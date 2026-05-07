@@ -1,57 +1,60 @@
-import { useState, useEffect } from 'react';
-import '../App.css'; 
-import '../styles/Notes.css'
+import { useState, useEffect, useRef } from 'react';
+import '../App.css';
+import '../styles/Notes.css';
 
 export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
     const [noteTitle, setNoteTitle] = useState('');
-    const [noteContent, setNoteContent] = useState ('');
-    const [noteOpen, setNoteOpen] = useState (false);
+    const [noteContent, setNoteContent] = useState([]);
+    const [noteOpen, setNoteOpen] = useState(false);
     const [selectedNote, setSelectedNote] = useState(null);
     const [menuOpen, setMenuOpen] = useState(false);
     const [moveTo, setMoveTo] = useState(false);
-    
+    const [activeIndex, setActiveIndex] = useState(0);
+    const textareaRef = useRef([]);
+
+
+
     const addNote = () => {
-        if (noteTitle.trim() === '' && noteContent.trim() === '') {
+        if (noteTitle.trim() === '' && noteContent.length === 0) {
             return setNoteOpen(false);
-        };
+        }
 
         if (selectedNote) {
-            setNotes (prev =>
+            setNotes(prev =>
                 prev.map(n =>
                     n.id === selectedNote.id
-                    ? {...n, title: noteTitle, content: noteContent}
-                    : n
+                        ? { ...n, title: noteTitle, content: noteContent }
+                        : n
                 )
-            )
+            );
         } else {
-
-        const newNote = {
-            id: Date.now (),
-            title: noteTitle,
-            content: noteContent,
-            folder: activeFolder
+            const newNote = {
+                id: Date.now(),
+                title: noteTitle,
+                content: noteContent,
+                folder: activeFolder
+            };
+            setNotes(prev => [...prev, newNote]);
         }
-        setNotes (prev => [...prev, newNote]);
-    };
 
         setSelectedNote(null);
         setNoteTitle('');
-        setNoteContent('');
+        setNoteContent([]);
         setNoteOpen(false);
         setMenuOpen(false);
     };
 
-    const closeNote = () =>{
-        setNoteOpen(false);
-    };
 
-    const openNote = (note) =>{
+
+    const openNote = (note) => {
         setSelectedNote(note);
         setNoteTitle(note.title);
         setNoteContent(note.content);
         setNoteOpen(true);
     };
+
+
 
     const deleteNote = () => {
         if (selectedNote) {
@@ -59,89 +62,263 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
         }
         setSelectedNote(null);
         setNoteTitle('');
-        setNoteContent('');
+        setNoteContent([]);
         setMenuOpen(false);
         setNoteOpen(false);
     };
 
-    const moveNote = (folderName) =>{
+
+
+    const moveNote = (folderName) => {
         if (!selectedNote) return;
-        setNotes (prev =>
+
+        setNotes(prev =>
             prev.map(n =>
                 n.id === selectedNote.id
-                    ? {...n, folder: folderName}
+                    ? { ...n, folder: folderName }
                     : n
             )
-        )
+        );
+
         setMoveTo(false);
         setMenuOpen(false);
+    };
+
+
+
+    const addTextBlock = () => {
+        const newBlock = { id: Date.now(), type: 'text', text: '' };
+
+        setNoteContent(prev => {
+            const updated = [...prev];
+            updated.splice(activeIndex + 1, 0, newBlock);
+            return updated;
+        });
+    };
+
+
+
+    const addCheckboxBlock = () => {
+        const newBlock = {
+            id: Date.now(),
+            type: 'checkbox',
+            text: '',
+            checked: false
+        };
+
+        setNoteContent(prev => {
+            const updated = [...prev];
+            updated.splice(activeIndex + 1, 0, newBlock);
+            return updated;
+        });
+
+        setTimeout(() => {
+                textareaRef.current[activeIndex + 1]?.focus();
+            }, 0)
+    };
+
+
+
+    const updateBlockText = (id, value) => {
+        setNoteContent(prev =>
+            prev.map(block =>
+                block.id === id ? { ...block, text: value } : block
+            )
+        );
+    };
+
+
+
+    const autoResize = (e) => {
+        e.target.style.height = 'auto';
+        e.target.style.height = e.target.scrollHeight + 'px'
     }
-    return(
+
+
+
+    useEffect(() => {
+        textareaRef.current.forEach(textarea =>{
+            if (textarea) {
+                textarea.style.height = 'auto';
+                textarea.style.height = textarea.scrollHeight + 'px';
+            }
+        });
+    }, [noteContent, noteOpen]);
+
+
+
+    const toggleCheckbox = (id) => {
+        setNoteContent(prev =>
+            prev.map(block =>
+                block.id === id
+                    ? { ...block, checked: !block.checked }
+                    : block
+            )
+        );
+    };
+
+
+
+    const handleEnter = (e, index) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+
+            const newBlock = { id: Date.now(), type: 'text', text: '' };
+
+            setNoteContent(prev => {
+                const updated = [...prev];
+                updated.splice(index + 1, 0, newBlock);
+                return updated;
+            });
+
+            setTimeout(() => {
+                textareaRef.current[index + 1]?.focus();
+            }, 0)
+        }
+    };
+
+
+
+    const handleBackspace = (e, block, index) => {
+        if (e.key === 'Backspace'&& (!block.text || block.text === '') && noteContent.length > 1) {
+            e.preventDefault();
+
+            setNoteContent(prev => prev.filter((_, i) => i !== index));
+
+            setTimeout(() => {
+                textareaRef.current[index - 1]?.focus();
+            }, 0)
+        }
+    };
+
+
+
+    return (
         <div className='notes-section'>
-                { noteOpen ? (
-              
-            <div className='note-area'>
-              <div className='title'>
-                <button onClick={addNote} className='close-note'>{"<"}</button>
-                <textarea
-                type='text'
-                value={noteTitle}
-                onChange={(e) => setNoteTitle(e.target.value)}
-                maxLength={"100"}
-                placeholder='Title'
-                className='note-title'
-                />
-                <button onClick={() => {
-                        setMenuOpen(prev => !prev);
-                        setMoveTo(false); 
-                }} className='three-dots'>⋮</button>
-                {menuOpen && (
-                <div className='menu'>
-                    <button className='menu-btn' onClick={() => setMoveTo(true)}>Move to→</button>
-                    <button className='menu-btn' onClick={deleteNote}>Delete</button>
-                </div>
-            )}
-                { moveTo && (
-                <div className='menu'>
-                    <p className='moveTo-text'>Move this note to...</p>
-                    {folders.map(folder =>(
-                      <button key={folder.id} className='menu-btn'
-                      onClick={() => moveNote(folder.id)}>
-                        {folder.name}
-                    </button>
+
+        {noteOpen ? (
+        <div className='note'>
+
+        <div className='functions-panel'>
+            <button className='function' onClick={addCheckboxBlock}>☑</button>
+            <button className='function'><b>B</b></button>
+            <button className='function-highlight'>H</button>
+        </div>
+
+        <div className='note-area'>
+
+        <div className='title'>
+            <button onClick={addNote} className='close-note'>{"<"}</button>
+
+        <textarea
+            value={noteTitle}
+            onChange={(e) => setNoteTitle(e.target.value)}
+            maxLength="100"
+            placeholder='Title'
+            className='note-title'
+         />
+
+        <button
+            onClick={() => {
+            setMenuOpen(prev => !prev);
+            setMoveTo(false);
+            }}
+            className='three-dots'
+        >⋮</button>
+
+        {menuOpen && (
+            <div className='menu'>
+                <button className='menu-btn' onClick={() => setMoveTo(true)}>Move to →</button>
+                <button className='menu-btn' onClick={deleteNote}>Delete</button>
+            </div>
+        )}
+
+        {moveTo && (
+            <div className='menu'>
+                <p className='moveTo-text'>Move this note to...</p>
+                    {folders.map(folder => (
+                <button
+                key={folder.id}
+                className='menu-btn'
+                onClick={() => moveNote(folder.id)}
+                >
+                {folder.name}
+                </button>
                 ))}
-                </div>
-            )}
-              </div>
+            </div>
+        )}
+            </div>
                 <p className='last-change'> April 29th 9:37</p>
-                <textarea
-                type='text'
-                value={noteContent}
-                onChange={(e) => setNoteContent(e.target.value)}
-                placeholder='Write something...'
-                className='note-content'
-                />
+                <div className='note-content'>
+                {noteContent.map((block, index) => (
+                <div key={block.id} className='blocks'>
+
+                {block.type === 'checkbox' && (
+                <button
+                onClick={() => toggleCheckbox(block.id)}
+                className={block.checked ? 'checked-box' : 'checkbox'}>
+                ✔
+                </button>
+                )}
+
+            <textarea
+                value={block.text}
+                ref={(el) => textareaRef.current[index] = el}
+                onChange={(e) => {
+                    updateBlockText(block.id, e.target.value);
+                    autoResize(e);
+                }}
+                onFocus={() => setActiveIndex(index)}
+                onKeyDown={(e) => {
+                    handleEnter(e, index);
+                    handleBackspace(e, block, index);
+                }}
+                placeholder={ index === 0 && block.length < 2 ? 'Write something...' : ''}
+                className={
+                    block.type === 'checkbox' && block.checked
+                    ? 'text-block-checked'
+                    : 'text-block'
+                }
+                rows={1}
+            />
             </div>
-            ) : (
-              <>
-                <div className='note-list' >
-                    {notes
-                       .filter(note =>
-                           activeFolder === 1
-                              ? true
-                              : note.folder === activeFolder
-                       )
-                       .map(note =>(
-                        <div key={note.id} className='note' onClick={() => openNote(note)}>
-                            <p>{note.title}</p>
-                        </div>
-                    ))}
-                </div>
-                <div className='add-note-btn' onClick={() => setNoteOpen(true)}>
-                        +
-                </div>
-              </>
-            )}
-            </div>
-    )
-}
+            ))}
+        </div>
+    </div>
+</div>
+    ) : (
+    <>
+    <div className='note-list'>
+        {notes
+        .filter(note =>
+        activeFolder === 1
+        ? true
+        : note.folder === activeFolder
+        )
+        .map(note => (
+        <div
+            key={note.id}
+            className='list-note'
+            onClick={() => openNote(note)}
+        >
+        <p>{note.title}</p>
+        </div>
+         ))}
+    </div>
+        <div
+            className='add-note-btn'
+            onClick={() => {
+                setNoteContent([
+                  { id: Date.now(), type: 'text', text: '' }
+                ]);
+                setSelectedNote(null);
+                setNoteTitle('');
+                setNoteOpen(true);
+            }}
+        >
+            +
+        </div>
+    </>
+        )}
+    </div>
+);}

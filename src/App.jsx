@@ -34,6 +34,7 @@ function App () {
                 setFolders={setFolders}
                 activeFolder={activeFolder}
                 setActiveFolder={setActiveFolder}
+                setNotes={setNotes}
             />
             <Notes
                 activeFolder={activeFolder}

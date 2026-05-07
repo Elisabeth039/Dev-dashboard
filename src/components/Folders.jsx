@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import '../App.css'; 
 import '../styles/Folders.css'
 
-export default function Folders ({ folders, setFolders, activeFolder, setActiveFolder }) {
+export default function Folders ({ folders, setFolders, activeFolder, setActiveFolder, setNotes }) {
     
     const [input, setInput] = useState('');
     const [isOpen, setIsOpen] = useState(false);
