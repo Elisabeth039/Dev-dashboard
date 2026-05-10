@@ -20,6 +20,8 @@
 }
 
 .list-note{
+    display: flex;
+    justify-content: space-between;
     width: 95%;
     height: 12%;
     padding: 0.5rem;
@@ -36,6 +38,11 @@
 .list-note:hover{
     background-color: var(--hover);
     transition: all ease 0.1s;
+}
+
+.shown-title{
+    font-size: 1.4rem;
+    font-weight: 600;
 }
 
 .add-note-btn{
@@ -103,6 +110,9 @@
     outline: none;
     margin-top: 1rem;
     resize: none;
+    scrollbar-width: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .note-title::placeholder{
@@ -160,18 +170,22 @@
 }
 
 .note-content{
+    background-color: aqua;
     display: flex;
     flex-direction: column;
     gap:0.25rem;
     color: var(--text);
     max-width: 95%;
-    height: 82%;
+    height: 81%;
     border-radius: 15px;
     padding: 1rem 1rem 0;
     background: none;
     border: none;
     outline: none;
     resize: none;
+    overflow: scroll;
+    scrollbar-width: none;
+    
 }
 
 .note-content::placeholder{

@@ -12,19 +12,37 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
     const [moveTo, setMoveTo] = useState(false);
     const [activeIndex, setActiveIndex] = useState(0);
     const textareaRef = useRef([]);
-
+    const titleRef = useRef(null);
+    const [changeTime, setChangeTime] = useState('');
+  
 
 
     const addNote = () => {
-        if (noteTitle.trim() === '' && noteContent.length === 0) {
-            return setNoteOpen(false);
+        const isEmpty = noteContent.every(
+            block => block.text.trim() === ''
+        );
+        
+        if (noteTitle.trim() === '' && isEmpty) {
+            if (selectedNote) {
+                setNotes(prev =>
+                    prev.filter(note => note.id !== selectedNote.id)
+                );
+            }
+            setNoteOpen(false);
+            setSelectedNote(null);
+            setNoteContent([]);
+            setNoteTitle('');
+            
+            return;
         }
 
         if (selectedNote) {
             setNotes(prev =>
                 prev.map(n =>
                     n.id === selectedNote.id
-                        ? { ...n, title: noteTitle, content: noteContent }
+                        ? { ...n, title: noteTitle,
+                            content: noteContent,
+                            lastChange: new Date().toLocaleString() }
                         : n
                 )
             );
@@ -33,7 +51,9 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
                 id: Date.now(),
                 title: noteTitle,
                 content: noteContent,
-                folder: activeFolder
+                folder: activeFolder,
+                pinned: false,
+                lastChange: new Date().toLocaleString()
             };
             setNotes(prev => [...prev, newNote]);
         }
@@ -147,6 +167,16 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
 
 
+    useEffect(() => {
+            if (titleRef.current) {
+                titleRef.current.style.height = 'auto';
+                titleRef.current.style.height = titleRef.current.scrollHeight + 'px';
+            }
+        }, [noteTitle, noteOpen]);
+
+
+
+
     const toggleCheckbox = (id) => {
         setNoteContent(prev =>
             prev.map(block =>
@@ -193,6 +223,43 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
 
 
+    const taskAmount = (folderId) =>{
+        let total = 0;
+        let completed = 0;
+
+        notes.forEach(note => {
+            if (note.folder === folderId) {
+                note.content.forEach(block => {
+                    if (block.type === 'checkbox') {
+                        total++;
+
+                        if(block.checked) {
+                            completed++;
+                        }
+                    }
+                });
+            }
+        });
+
+        if (total === 0) return '0%';
+
+        return`${Math.round((completed/total) * 100)}%`;
+    }
+
+
+    
+    const pinNotes = (id) =>{
+        setNotes(prev =>
+            prev.map(note =>
+                note.id === id
+                ? {...note, pinned: !note.pinned}
+                : note
+            )
+        )
+    }
+
+
+
     return (
         <div className='notes-section'>
 
@@ -212,8 +279,11 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
         <textarea
             value={noteTitle}
-            onChange={(e) => setNoteTitle(e.target.value)}
-            maxLength="100"
+            ref={titleRef}
+            onChange={(e) => {setNoteTitle(e.target.value);
+                autoResize(e);
+            }}
+            maxLength="75"
             placeholder='Title'
             className='note-title'
          />
@@ -228,7 +298,8 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
         {menuOpen && (
             <div className='menu'>
-                <button className='menu-btn' onClick={() => setMoveTo(true)}>Move to →</button>
+                <button className='menu-btn' onClick={() => {pinNotes(selectedNote.id); setMenuOpen(false)}}>{selectedNote.pinned === true ? 'Unpin note' : 'Pin note'}</button>
+                <button className='menu-btn' onClick={() => {setMoveTo(true); setMenuOpen(false)}}>Move to →</button>
                 <button className='menu-btn' onClick={deleteNote}>Delete</button>
             </div>
         )}
@@ -248,7 +319,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
             </div>
         )}
             </div>
-                <p className='last-change'> April 29th 9:37</p>
+                <p className='last-change'>{selectedNote?.lastChange}</p>
                 <div className='note-content'>
                 {noteContent.map((block, index) => (
                 <div key={block.id} className='blocks'>
@@ -295,13 +366,15 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
         ? true
         : note.folder === activeFolder
         )
+        .sort((a, b) => b.pinned - a.pinned)
         .map(note => (
         <div
             key={note.id}
             className='list-note'
             onClick={() => openNote(note)}
         >
-        <p>{note.title}</p>
+        <p className='shown-title'>{note.title === '' ? 'New Note' : note.title}</p>
+        <div>{note.pinned ? '📌' : ''}</div>
         </div>
          ))}
     </div>
