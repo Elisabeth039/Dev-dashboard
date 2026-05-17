@@ -28,28 +28,49 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
       }
     };
 
+    useEffect(() => {
+    const scrollContainer = document.querySelector('.all-folders')
+    if (!scrollContainer) return;
+    
+    const handleWheel = (e) =>{
+        e.preventDefault();
+        scrollContainer.scrollBy({
+            left: e.deltaY,
+            behavior: 'smooth'
+        });
+    };
+
+    scrollContainer.addEventListener('wheel', handleWheel);
+
+    return () => {
+        scrollContainer.removeEventListener('wheel', handleWheel);
+    };
+    }, []);
+
     return(
         <div className='folders-container'>
             <input
             type='text' placeholder=' ⌕ Search notes...' className='search'> 
             </input>
             <div className='folders'>
-              { isOpen ? (
+                <button 
+                 onClick={() => isOpen ? setIsOpen(false) : setIsOpen(true)}
+                 class='pill folder-input'
+                 >🗀</button>
+              { isOpen && (
         <div className='add-folder-pill'>
             <input
             type='text'
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            maxLength={15}
             className='add-input'
             />
             <button className='add-folder' onClick={addFolder}>Add folder</button>
+            <button className='close-btn' onClick={() => setIsOpen(false)}>✕</button>
         </div>
-            ) : (
-                <button 
-                 onClick={() => setIsOpen(true)}
-                 className='pill'
-                 >🗀</button>
-            )}
+              )}
+            <div className='all-folders'>
                 {folders.map(folder =>(
                   <div key={folder.id} className={`pill ${
                         activeFolder === folder.id ? "active" : ""
@@ -58,10 +79,11 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
                         {folder.name}
                     </p>
                     { folder.id !== 1 && (
-                    <button className='folder-close-btn' onClick={() => deleteFolder(folder.id)}>✕</button>
+                    <button className='close-btn' onClick={() => deleteFolder(folder.id)}>✕</button>
                     )}
                   </div>
                 ))}
+            </div>
             </div>
         </div>
     )

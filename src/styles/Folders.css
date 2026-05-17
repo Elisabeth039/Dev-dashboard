@@ -1,3 +1,7 @@
+.folders-container{
+    width: 100%;
+}
+
 .search{
     color: var(--text);
     height:2.2rem;
@@ -20,10 +24,20 @@
     transition: all ease 0.1s;
 }
 
-.folders{
+.folders {
     display: flex;
-    gap:0.8rem;
-    transition: all ease 4s;
+    align-items: center;
+    gap:0.7rem;
+    padding-bottom: 6px;
+}
+
+.all-folders{
+    display: flex;
+    flex-direction: row;
+    gap:0.7rem;
+    max-width:40rem;
+    overflow-x: auto;
+    scrollbar-width:none;
 }
 
 .pill{
@@ -39,6 +53,7 @@
     color: var(--text);
     align-items: center;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .pill:hover{
@@ -57,7 +72,7 @@
     cursor: pointer;
 }
 
-.folder-close-btn{
+.close-btn{
     background: none;
     border: none;
     outline: none;
@@ -65,21 +80,29 @@
     color: var(--text);
 }
 
-.folder-close-btn:hover{
+.close-btn:hover{
     color: var(--yellow-highlight);
     text-shadow: 1px 1px 7px var(--text);
     scale: 1.2;
 }
 
+.folder-input{
+    position: relative;
+}
+
 .add-folder-pill {
+    position: absolute;
+    top: 18%;
     display: flex;
+    gap:0.5rem;
     background-color: var(--cards);
     height: 2rem;
     margin-bottom: 1rem;
-    padding: 0 0.25rem;
+    padding: 0 0.5rem;
     border: none;
     border-radius: 20px;
     align-items: center;
+    box-shadow: 5px 5px 20px black;
 }
 
 .add-input{
