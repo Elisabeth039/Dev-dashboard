@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import Folders from './components/Folders.jsx';
 import Notes from './components/Notes.jsx';
+import TodayFocus from './components/TodayFocus.jsx'
 
 function App () {
     const [folders, setFolders] = useState(() => {
@@ -25,9 +26,26 @@ function App () {
     }, [notes])
 
     const [activeFolder, setActiveFolder] = useState(1);
+    const [noteToOpen, setNoteToOpen] = useState(null);
+
+    const openNote = (note) =>{
+        setActiveFolder(note.folder);
+        setNoteToOpen(note);
+    };
+
+    useEffect (() =>{
+        if (noteToOpen) {
+            setNoteToOpen(null);
+        }
+    }, [noteToOpen]);
 
     return(
         <div className='main-content'>
+            <TodayFocus
+                notes={notes}
+                folders={folders}
+                onOpenNote={openNote}
+            />
           <div className='notes-container'>
             <Folders
                 folders={folders}
@@ -42,6 +60,7 @@ function App () {
                 setFolders={setFolders}
                 notes={notes}
                 setNotes={setNotes}
+                externalNote={noteToOpen}
             />
           </div>
         </div>

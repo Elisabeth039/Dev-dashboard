@@ -1,0 +1,93 @@
+.today-focus-section{
+    background-color: var(--second-bg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-radius: 50px;
+    height: 25%;
+    width: 98%;
+    padding: 0.5rem;
+}
+
+.label{
+    display: flex;
+    justify-content: space-between;
+    height: 30%;
+    border-radius: 40px;
+    padding: 0.5rem;
+}
+
+.pinned-note{
+    background-color: var(--cards);
+    height: 60%;
+    border-radius: 40px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.tf-label{
+    color: var(--text);
+    font-size: 1.7rem;
+    align-self: center;
+}
+
+.tf-pinned-note{
+    display: flex;
+    flex-direction: column;
+    width: 96%;
+    height: 7rem;
+    color: var(--text);
+    padding: 0 1rem;
+    justify-content: space-between;
+    border-radius: 40px;
+}
+
+.btn-up, .btn-down{
+    background: none;
+    outline: none;
+    border: none;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+    width: 2rem;
+    align-self: center;
+}
+
+.no-pinned{
+    padding: 1rem;
+    font-size: 1.2rem;
+    color: var(--text);
+}
+
+.note-info{
+    height: 90%;
+    display: flex;
+    gap:2rem;
+}
+
+.pinned-content{
+    width: 60%;
+    min-width: 0;
+}
+
+.folder-title{
+    width: 40%;
+    min-width: 0;
+}
+
+.pinned-folder{
+    font-size: 1.5rem;
+}
+
+.pinned-title{
+    font-size: 0.9rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.pinned-title,
+.pinned-content{
+    overflow-wrap: break-word;
+    word-break: break-word;
+}

@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import '../styles/Notes.css';
 
-export default function Notes({ activeFolder, folders, notes, setNotes }) {
+export default function Notes({ activeFolder, folders, notes, setNotes, externalNote }) {
 
     const [noteTitle, setNoteTitle] = useState('');
     const [noteContent, setNoteContent] = useState([]);
@@ -176,6 +176,17 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
 
 
+        useEffect(() =>{
+            if (externalNote) {
+                setSelectedNote(externalNote);
+                setNoteTitle(externalNote.title);
+                setNoteContent(externalNote.content || []);
+                setNoteOpen(true);
+            }
+        }, [externalNote]);
+
+
+
 
     const toggleCheckbox = (id) => {
         setNoteContent(prev =>
@@ -298,7 +309,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes }) {
 
         {menuOpen && (
             <div className='menu'>
-                <button className='menu-btn' onClick={() => {pinNotes(selectedNote.id); setMenuOpen(false)}}>{selectedNote.pinned === true ? 'Unpin note' : 'Pin note'}</button>
+                <button className='menu-btn' onClick={() => { if (selectedNote) {pinNotes(selectedNote.id);} setMenuOpen(false)}}>{selectedNote.pinned === true ? 'Unpin note' : 'Pin note'}</button>
                 <button className='menu-btn' onClick={() => {setMoveTo(true); setMenuOpen(false)}}>Move to →</button>
                 <button className='menu-btn' onClick={deleteNote}>Delete</button>
             </div>
