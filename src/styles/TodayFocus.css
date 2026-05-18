@@ -20,7 +20,7 @@
 
 .pinned-note{
     background-color: var(--cards);
-    height: 60%;
+    height: 100%;
     border-radius: 40px;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -34,12 +34,12 @@
 
 .tf-pinned-note{
     display: flex;
+    justify-content: space-between;
     flex-direction: column;
     width: 96%;
-    height: 7rem;
+    height: 96%;
     color: var(--text);
-    padding: 0 1rem;
-    justify-content: space-between;
+    padding: 0.1rem 1rem;
     border-radius: 40px;
 }
 

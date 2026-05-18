@@ -233,31 +233,6 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
     };
 
 
-
-    const taskAmount = (folderId) =>{
-        let total = 0;
-        let completed = 0;
-
-        notes.forEach(note => {
-            if (note.folder === folderId) {
-                note.content.forEach(block => {
-                    if (block.type === 'checkbox') {
-                        total++;
-
-                        if(block.checked) {
-                            completed++;
-                        }
-                    }
-                });
-            }
-        });
-
-        if (total === 0) return '0%';
-
-        return`${Math.round((completed/total) * 100)}%`;
-    }
-
-
     
     const pinNotes = (id) =>{
         setNotes(prev =>

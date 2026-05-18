@@ -3,6 +3,7 @@ import './App.css';
 import Folders from './components/Folders.jsx';
 import Notes from './components/Notes.jsx';
 import TodayFocus from './components/TodayFocus.jsx'
+import Stats from './components/Stats.jsx';
 
 function App () {
     const [folders, setFolders] = useState(() => {
@@ -41,11 +42,17 @@ function App () {
 
     return(
         <div className='main-content'>
+            <div className='first-column'>
             <TodayFocus
                 notes={notes}
                 folders={folders}
                 onOpenNote={openNote}
             />
+            <Stats
+                notes={notes}
+                folders={folders}
+            />
+            </div>
           <div className='notes-container'>
             <Folders
                 folders={folders}
