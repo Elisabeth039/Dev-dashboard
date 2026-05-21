@@ -4,8 +4,29 @@
 }
 
 .label{
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.label-txt{
     color: var(--text);
     font-size: 1.7rem;
+}
+
+.project-icon{
+    width: 1.7rem;
+    height: 1.7rem;
+    color: var(--text);
+    text-align: center;
+    font-size: 1.1rem;
+    align-content: center;
+    outline: none;
+    border: 1px solid var(--yellow-highlight);
+    border-radius: 30px;
+    background-color: var(--hover);
+    box-shadow: 2px 2px 2px var(--yellow-highlight) ;
+    transition: all ease 0.1s;
 }
 
 .active-projects{

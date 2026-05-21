@@ -276,6 +276,25 @@
     border-radius: 5px;
 }
 
+.time-block{
+    display: flex;
+    gap: 0.5rem;
+}
+
+.time-input{
+    background: none;
+    border: none;
+    width: 0.8rem;
+    color: var(--yellow-highlight);
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.time-input::-webkit-outer-spin-button,
+.time-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
 .text-block-checked{
    font-size: 1.1rem;
     width: 100%;

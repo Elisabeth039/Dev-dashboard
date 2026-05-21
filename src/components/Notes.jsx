@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import '../App.css';
 import '../styles/Notes.css';
 
-export default function Notes({ activeFolder, folders, notes, setNotes, externalNote }) {
+export default function Notes({ activeFolder, folders, notes, setNotes, externalNote, searchQuery }) {
 
     const [noteTitle, setNoteTitle] = useState('');
     const [noteContent, setNoteContent] = useState([]);
@@ -139,6 +139,26 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
 
 
 
+    const addTimeBlock = () =>{
+        const newBlock = {
+            id: Date.now(),
+            type: 'time',
+            text: ''
+        };
+
+        setNoteContent(prev => {
+            const updated = [...prev];
+            updated.splice(activeIndex + 1, 0, newBlock);
+            return updated;
+        });
+
+        setTimeout(() => {
+                textareaRef.current[activeIndex + 1]?.focus();
+            }, 0);
+    }
+
+
+
     const updateBlockText = (id, value) => {
         setNoteContent(prev =>
             prev.map(block =>
@@ -184,7 +204,6 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 setNoteOpen(true);
             }
         }, [externalNote]);
-
 
 
 
@@ -242,7 +261,15 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 : note
             )
         )
-    }
+    };
+
+
+
+    const searchWords = searchQuery
+        .toLowerCase()
+        .trim()
+        .split(' ')
+        .filter(word => word !== ' ');
 
 
 
@@ -254,6 +281,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
 
         <div className='functions-panel'>
             <button className='function' onClick={addCheckboxBlock}>☑</button>
+            <button className='function' onClick={addTimeBlock}>T</button>
             <button className='function'><b>B</b></button>
             <button className='function-highlight'>H</button>
         </div>
@@ -318,6 +346,32 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 </button>
                 )}
 
+                {block.type === 'time' ? (
+                    <div className='time-block'>
+                        <p className='time-label'>Time:</p>
+                        <input
+                        type='number'
+                        value={block.text}
+                        placeholder='0'
+                        className='time-input'
+                        ref={(el) => textareaRef.current[index] = el}
+                        onChange={(e) => {
+
+                            const value = e.target.value;
+                            if (value.length <= 1){
+                            updateBlockText(block.id, e.target.value);
+                            }
+                        }}
+                        onFocus={() => setActiveIndex(index)}
+                        onKeyDown={(e) => {
+                            handleEnter(e, index);
+                            handleBackspace(e, block, index);
+                        }}
+                        />
+                        <p>days</p>
+                    </div>
+                ) : (
+
             <textarea
                 value={block.text}
                 ref={(el) => textareaRef.current[index] = el}
@@ -338,6 +392,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 }
                 rows={1}
             />
+                )}
             </div>
             ))}
         </div>
@@ -352,6 +407,16 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
         ? true
         : note.folder === activeFolder
         )
+        .filter(note => {
+            const noteText = (
+                note.title + ' ' +
+                note.content.map(block => block.text).join(' ')
+            ).toLowerCase();
+
+            return searchWords.every(word =>
+                noteText.includes(word)
+            );
+        })
         .sort((a, b) => b.pinned - a.pinned)
         .map(note => (
         <div

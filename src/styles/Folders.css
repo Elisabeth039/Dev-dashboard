@@ -105,6 +105,36 @@
     box-shadow: 5px 5px 20px black;
 }
 
+.add-project{
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--text);
+    text-align: center;
+    background:none;
+    outline: none;
+    border: 2px solid var(--yellow-highlight);
+    border-radius: 30px;
+    transition: all ease 0.1s;
+}
+
+.add-project:hover, .add-project-active:hover{
+    background-color: var(--hover);
+}
+
+.add-project-active{
+    width: 1.6rem;
+    height: 1.6rem;
+    color: var(--text);
+    text-align: center;
+    align-content: center;
+    outline: none;
+    border: 1px solid var(--yellow-highlight);
+    border-radius: 30px;
+    background-color: var(--hover);
+    box-shadow: 2px 2px 2px var(--yellow-highlight) ;
+    transition: all ease 0.1s;
+}
+
 .add-input{
     font-size: 0.9rem;
     background: none;

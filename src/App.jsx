@@ -6,6 +6,7 @@ import TodayFocus from './components/TodayFocus.jsx'
 import Stats from './components/Stats.jsx';
 
 function App () {
+
     const [folders, setFolders] = useState(() => {
         const savedFolders = localStorage.getItem('folders')
         return savedFolders 
@@ -28,6 +29,7 @@ function App () {
 
     const [activeFolder, setActiveFolder] = useState(1);
     const [noteToOpen, setNoteToOpen] = useState(null);
+    const [searchQuery, setSearchQuery] = useState('');
 
     const openNote = (note) =>{
         setActiveFolder(note.folder);
@@ -60,6 +62,8 @@ function App () {
                 activeFolder={activeFolder}
                 setActiveFolder={setActiveFolder}
                 setNotes={setNotes}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
             />
             <Notes
                 activeFolder={activeFolder}
@@ -68,6 +72,7 @@ function App () {
                 notes={notes}
                 setNotes={setNotes}
                 externalNote={noteToOpen}
+                searchQuery={searchQuery}
             />
           </div>
         </div>
