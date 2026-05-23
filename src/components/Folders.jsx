@@ -102,7 +102,7 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
                         activeFolder === folder.id ? "active" : ""
                     }`}>
                     <p onClick={() => setActiveFolder(folder.id)} className='folder-btn'>
-                        { folder.project === true ? 'P' + folder.name : folder.name}
+                        { folder.project === true ? 'P | ' + folder.name : folder.name}
                     </p>
                     { folder.id !== 1 && (
                     <button className='close-btn' onClick={() => deleteFolder(folder.id)}>✕</button>
