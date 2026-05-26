@@ -10,6 +10,32 @@
     padding: 0.5rem;
 }
 
+.tf-top{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+}
+
+.theme-btns{
+    display: flex;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.theme-btn{
+    height: 2.8rem;
+    width: 2.8rem;
+    background-color: var(--cards);
+    border: none;
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 0.8rem;
+}
+
+.theme-btn:hover{
+    background-color: var(--hover);
+}
+
 .label{
     display: flex;
     justify-content: space-between;

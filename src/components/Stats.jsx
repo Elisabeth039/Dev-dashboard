@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../App.css';
 import '../styles/Stats.css'
 
-export default function Stats ({notes, folders}) {
+export default function Stats ({notes, folders, setActiveFolder}) {
 
     const taskAmount = (folderId) =>{
 
@@ -70,13 +70,17 @@ export default function Stats ({notes, folders}) {
     };
 
     const daysLeft = (deadlineDate) => {
+        if (!deadlineDate || isNaN(deadlineDate)) {
+        return '--';
+    };
+
         const today = new Date();
         const diffDays = Math.ceil(
             (deadlineDate - today) /
             (1000 * 60 * 60 * 24)
         );
 
-        return `${diffDays}`;
+        return `${diffDays}`
     }
 
     return(
@@ -93,7 +97,7 @@ export default function Stats ({notes, folders}) {
                 .map(folder => {
                     const projectData = calculateProjectDates(folder.id)
                     return (
-                    <div key={folder.id} className='project'>
+                    <div key={folder.id} className='project' onClick={() => setActiveFolder(folder.id)}>
                         <div className='pr-info'>
                         <p className='pr-name'>{folder.name}</p>
                         <p>{projectData.dates}</p>

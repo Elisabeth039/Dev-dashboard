@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import '../App.css'; 
 import '../styles/TodayFocus.css'
 
-export default function TodayFocus ({notes, folders, onOpenNote}) {
+export default function TodayFocus ({notes, folders, onOpenNote, setTheme}) {
 
 const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -42,9 +42,19 @@ const currentNote = pinnedNotes[currentIndex];
 
     return(
         <div className='today-focus-section'>
+          <div className='tf-top'>
             <div className='label'>
                 <p className='tf-label'>Today's Focus</p>
             </div>
+            <div className='theme-btns'>
+                <button className='theme-btn' onClick={() => setTheme('sakura-night-theme')}>Sakura</button>
+                <button className='theme-btn' onClick={() => setTheme('lavender-fog-theme')}>Fog</button>
+                <button className='theme-btn' onClick={() => setTheme('graphite-gold-theme')}>Gold</button>
+                <button className='theme-btn' onClick={() => setTheme('forest-theme')}>Forest</button>
+                <button className='theme-btn' onClick={() => setTheme('ocean-ink-theme')}>Ocean</button>
+                <button className='theme-btn' onClick={() => setTheme('sage-rose-theme')}>Rose</button>
+            </div>
+          </div>
             <div className='pinned-note'>
                 {pinnedNotes.length === 0 ? (
                     <p className='no-pinned'>No pinned notes yet</p>

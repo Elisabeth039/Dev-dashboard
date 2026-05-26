@@ -63,7 +63,7 @@
 
 .pill.active{
     box-shadow: 3px 3px 3px var(--highlight);
-    transition: all ease 0.2s;
+    transition: all ease 0.1s;
 }
 
 .folder-btn{
@@ -102,7 +102,7 @@
     border: none;
     border-radius: 20px;
     align-items: center;
-    box-shadow: 5px 5px 20px black;
+    box-shadow: 5px 5px 20px var(--dark-elements);
 }
 
 .add-project{

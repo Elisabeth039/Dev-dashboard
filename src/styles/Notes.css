@@ -46,7 +46,7 @@
 }
 
 .add-note-btn{
-    background-color: black;
+    background-color: var(--dark-elements);
     display: flex;
     position: absolute;
     right: 100px;
@@ -282,7 +282,7 @@
 }
 
 .time-input{
-    background: none;
+    background-color: var(--cards);
     border: none;
     width: 0.8rem;
     color: var(--yellow-highlight);
@@ -313,7 +313,6 @@
 
 .check-block{
     width: 100%;
-    background-color: blue;
     display: flex;
     gap:1rem;
 }

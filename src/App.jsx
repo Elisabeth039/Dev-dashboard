@@ -7,6 +7,15 @@ import Stats from './components/Stats.jsx';
 
 function App () {
 
+    const [theme, setTheme] = useState(() =>{
+        return localStorage.getItem('theme') || 'sage-rose-theme'
+    });
+
+    useEffect(() => {
+    document.body.className = theme;
+    localStorage.setItem('theme', theme)
+    }, [theme]);
+
     const [folders, setFolders] = useState(() => {
         const savedFolders = localStorage.getItem('folders')
         return savedFolders 
@@ -43,16 +52,19 @@ function App () {
     }, [noteToOpen]);
 
     return(
+        <div className={theme}>
         <div className='main-content'>
             <div className='first-column'>
             <TodayFocus
                 notes={notes}
                 folders={folders}
                 onOpenNote={openNote}
+                setTheme={setTheme}
             />
             <Stats
                 notes={notes}
                 folders={folders}
+                setActiveFolder={setActiveFolder}
             />
             </div>
           <div className='notes-container'>
@@ -75,6 +87,7 @@ function App () {
                 searchQuery={searchQuery}
             />
           </div>
+        </div>
         </div>
     )
 }
