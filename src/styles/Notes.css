@@ -100,6 +100,11 @@
     overflow-wrap: break-word;
 }
 
+.completed-emoji{
+    align-self: center;
+    scale: 1.5;
+}
+
 .note-title{
     color: var(--text);
     font-size: 1.3rem;
@@ -133,6 +138,11 @@
 
 .three-dots:hover{
     color: var(--text);
+}
+
+.three-dots:disabled{
+    color: var(--muted-text);
+    opacity: 0.2;
 }
 
 .menu{

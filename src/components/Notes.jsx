@@ -53,7 +53,8 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 content: noteContent,
                 folder: activeFolder,
                 pinned: false,
-                lastChange: new Date().toLocaleString()
+                lastChange: new Date().toLocaleString(),
+                completed: false
             };
             setNotes(prev => [...prev, newNote]);
         }
@@ -265,6 +266,14 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
 
 
 
+   const isCompleted = (noteContentArray) => {
+    const checkboxes = noteContentArray.filter(block => block.type === 'checkbox');
+    if (checkboxes.length === 0) return false;
+    return checkboxes.every(block => block.checked);
+   };
+
+
+
     const searchWords = searchQuery
         .toLowerCase()
         .trim()
@@ -291,6 +300,10 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
         <div className='title'>
             <button onClick={addNote} className='close-note'>{"<"}</button>
 
+        {isCompleted(noteContent) && (
+                <span className='completed-emoji'>✅</span>
+            )}
+
         <textarea
             value={noteTitle}
             ref={titleRef}
@@ -302,11 +315,13 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
             className='note-title'
          />
 
-        <button
+        <button 
+            disabled={selectedNote === null}
             onClick={() => {
+            if (selectedNote){
             setMenuOpen(prev => !prev);
             setMoveTo(false);
-            }}
+            }}}
             className='three-dots'
         >⋮</button>
 
@@ -417,14 +432,19 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                 noteText.includes(word)
             );
         })
-        .sort((a, b) => b.pinned - a.pinned)
+        .sort((a, b) => {
+            if (b.pinned !== a.pinned){
+                return b.pinned - a.pinned;
+            };
+            return isCompleted(a.content) - isCompleted(b.content);
+        })
         .map(note => (
         <div
             key={note.id}
             className='list-note'
             onClick={() => openNote(note)}
         >
-        <p className='shown-title'>{note.title === '' ? 'New Note' : note.title}</p>
+        <p className='shown-title'>{isCompleted(note.content) ? '✅' : ''}{note.title === '' ? 'New Note' : note.title}</p>
         <div>{note.pinned ? '📌' : ''}</div>
         </div>
          ))}
