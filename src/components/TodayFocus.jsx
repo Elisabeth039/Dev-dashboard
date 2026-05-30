@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import '../App.css'; 
 import '../styles/TodayFocus.css'
 
-export default function TodayFocus ({notes, folders, onOpenNote, setTheme}) {
+export default function TodayFocus ({notes, folders, onOpenNote, theme, setTheme}) {
 
 const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -47,12 +47,12 @@ const currentNote = pinnedNotes[currentIndex];
                 <p className='tf-label'>Today's Focus</p>
             </div>
             <div className='theme-btns'>
-                <button className='theme-btn' onClick={() => setTheme('sakura-night-theme')}>Sakura</button>
-                <button className='theme-btn' onClick={() => setTheme('lavender-fog-theme')}>Fog</button>
-                <button className='theme-btn' onClick={() => setTheme('graphite-gold-theme')}>Gold</button>
-                <button className='theme-btn' onClick={() => setTheme('forest-theme')}>Forest</button>
-                <button className='theme-btn' onClick={() => setTheme('ocean-ink-theme')}>Ocean</button>
-                <button className='theme-btn' onClick={() => setTheme('sage-rose-theme')}>Rose</button>
+                <button className={`theme-btn ${theme === 'sakura-night-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('sakura-night-theme')}>Sakura</button>
+                <button className={`theme-btn ${theme === 'lavender-fog-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('lavender-fog-theme')}>Fog</button>
+                <button className={`theme-btn ${theme === 'graphite-gold-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('graphite-gold-theme')}>Gold</button>
+                <button className={`theme-btn ${theme === 'forest-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('forest-theme')}>Forest</button>
+                <button className={`theme-btn ${theme === 'ocean-ink-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('ocean-ink-theme')}>Ocean</button>
+                <button className={`theme-btn ${theme === 'sage-rose-theme' ? 'active-theme' : ''}`} onClick={() => setTheme('sage-rose-theme')}>Rose</button>
             </div>
           </div>
             <div className='pinned-note'>

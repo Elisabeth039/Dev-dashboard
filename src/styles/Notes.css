@@ -175,6 +175,12 @@
     box-shadow: inset 2px 2px 2px var(--highlight);
 }
 
+.menu-btn:disabled{
+    background-color: var(--muted-text);
+    box-shadow: inset 2px 2px 2px var(--dark-elements);
+    cursor: default;
+}
+
 .moveTo-text{
     color: var(--text);
 }
@@ -273,7 +279,7 @@
     width: 1.5rem;
     height: 1.5rem;
     background: none;
-    border: 1px solid var(--yellow-highlight);
+    border: 2px solid var(--dark-elements);
     border-radius: 5px;
     color:var(--text);
 }
@@ -282,21 +288,23 @@
     background-color: var(--yellow-highlight);
     width: 1.5rem;
     height: 1.5rem;
-    border: none;
+    border: 1px solid var(--dark-elements);
     border-radius: 5px;
 }
 
 .time-block{
     display: flex;
     gap: 0.5rem;
+    font-size: 1.1rem;
 }
 
 .time-input{
     background-color: var(--cards);
     border: none;
     width: 0.8rem;
-    color: var(--yellow-highlight);
+    color: var(--highlight);
     font-size: 1.1rem;
+    font-weight: 600;
     outline: none;
 }
 

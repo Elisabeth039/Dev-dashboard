@@ -93,7 +93,7 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
             className='add-input'
             />
             <button className='add-folder' onClick={addFolder}>Add folder</button>
-            <button className='close-btn' onClick={() => {setIsOpen(false), setIsProject(false)}}>✕</button>
+            <button className='close-btn' onClick={() => {setIsOpen(false); setIsProject(false)}}>✕</button>
         </div>
               )}
             <div className='all-folders'>

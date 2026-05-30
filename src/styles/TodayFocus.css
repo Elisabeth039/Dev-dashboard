@@ -36,6 +36,16 @@
     background-color: var(--hover);
 }
 
+.active-theme{
+    background-color: var(--highlight);
+    color: var(--dark-elements);
+}
+
+.active-theme:hover{
+    background-color: var(--yellow-highlight);
+    color: var(--text-on-highlight);
+}
+
 .label{
     display: flex;
     justify-content: space-between;

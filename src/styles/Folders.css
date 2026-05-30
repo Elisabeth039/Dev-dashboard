@@ -93,6 +93,7 @@
 .add-folder-pill {
     position: absolute;
     top: 18%;
+    z-index: 10;
     display: flex;
     gap:0.5rem;
     background-color: var(--cards);

@@ -101,6 +101,8 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
             )
         );
 
+        setSelectedNote(prev => prev ? {...prev, folder: folderName} : null);
+
         setMoveTo(false);
         setMenuOpen(false);
     };
@@ -292,7 +294,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
             <button className='function' onClick={addCheckboxBlock}>☑</button>
             <button className='function' onClick={addTimeBlock}>T</button>
             <button className='function'><b>B</b></button>
-            <button className='function-highlight'>H</button>
+            <button className='function function-highlight'>H</button>
         </div>
 
         <div className='note-area'>
@@ -339,6 +341,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                     {folders.map(folder => (
                 <button
                 key={folder.id}
+                disabled={folder.id === selectedNote.folder}
                 className='menu-btn'
                 onClick={() => moveNote(folder.id)}
                 >

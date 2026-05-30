@@ -4,42 +4,6 @@
   transition: all ease 0.2s;
 }
 
-.forest-theme{
-  --bg: #17211B;
-  --second-bg: #243127;
-  --cards: #3A4A3D;
-  --hover: #4A5E4E;
-  --text: #d3dae2;
-  --muted-text: #C4B4AC;
-  --dark-elements: #0C0F0D;
-  --highlight: #D79CA4;
-  --yellow-highlight: #D8B56A;
-}
-
-.ocean-ink-theme{
-  --bg: #111B2B;
-  --second-bg: #1E2B40;
-  --cards: #34455F;
-  --hover: #465A77;
-  --text: #E7EDF6;
-  --muted-text: #9DAFC7;
-  --dark-elements: #05070A;
-  --highlight: #6FA8FF;
-  --yellow-highlight: #E6C36A;
-}
-
-.sage-rose-theme{
-  --bg: #F2E7E1;
-  --second-bg: #D9C6BB;
-  --cards: #A88F80;
-  --hover: #937868;
-  --text: #3B302B;
-  --muted-text: #72655E;
-  --dark-elements: #241C19;
-  --highlight: #556B57;
-  --yellow-highlight: #B7848C;
-}
-
 html, body {
   font-size: 100%;
   height: 100%;
@@ -71,6 +35,45 @@ body{
     border-radius: 50px;
 }
 
+.forest-theme{
+  --bg: #17211B;
+  --second-bg: #243127;
+  --cards: #3A4A3D;
+  --hover: #4A5E4E;
+  --text: #d3dae2;
+  --muted-text: #C4B4AC;
+  --dark-elements: #0C0F0D;
+  --highlight: #D79CA4;
+  --yellow-highlight: #D8B56A;
+  --text-on-highlight: #0C0F0D;
+}
+
+.ocean-ink-theme{
+  --bg: #111B2B;
+  --second-bg: #1E2B40;
+  --cards: #34455F;
+  --hover: #465A77;
+  --text: #E7EDF6;
+  --muted-text: #9DAFC7;
+  --dark-elements: #05070A;
+  --highlight: #6FA8FF;
+  --yellow-highlight: #E6C36A;
+  --text-on-highlight: #05070A;
+}
+
+.sage-rose-theme{
+  --bg: #F2E7E1;
+  --second-bg: #D9C6BB;
+  --cards: #A88F80;
+  --hover: #937868;
+  --text: #3B302B;
+  --muted-text: #72655E;
+  --dark-elements: #241C19;
+  --highlight: #556B57;
+  --yellow-highlight: #B7848C;
+  --text-on-highlight: #F2E7E1;
+}
+
 .graphite-gold-theme{
   --bg: #171717;
   --second-bg: #242424;
@@ -81,6 +84,7 @@ body{
   --dark-elements: #000000;
   --highlight: #D4A017;
   --yellow-highlight: #F4D35E;
+  --text-on-highlight: #000000;
 }
 
 .lavender-fog-theme{
@@ -93,6 +97,7 @@ body{
   --dark-elements: #1B1620;
   --highlight: #8E7CC3;
   --yellow-highlight: #D6B76D;
+  --text-on-highlight: #F3F0F7;
 }
 
 .sakura-night-theme{
@@ -105,4 +110,5 @@ body{
   --dark-elements: #08070B;
   --highlight: #D2A7B7;
   --yellow-highlight: #E9D0D8;
+  --text-on-highlight: #08070B;
 }

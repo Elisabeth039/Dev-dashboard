@@ -59,6 +59,7 @@ function App () {
                 notes={notes}
                 folders={folders}
                 onOpenNote={openNote}
+                theme={theme}
                 setTheme={setTheme}
             />
             <Stats
