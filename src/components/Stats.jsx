@@ -33,12 +33,12 @@ export default function Stats ({notes, folders, setActiveFolder}) {
         notes.forEach(note =>{
            if (note.folder === (folderId)) {
 
-           if (note.lastChange) {
-            const parsedDate = Date.parse(note.lastChange);
-            if (!isNaN(parsedDate)){
-                completionDates.push(new Date(parsedDate));
-            } 
-           }
+           note.content.forEach(block =>{
+            if (block.type === 'checkbox' && block.completedAt) {
+                completionDates.push(
+                    new Date(block.completedAt)
+                );
+            }});
 
            note.content?.forEach(block => {
             if (block.type === 'time' && block.text) {

@@ -13,7 +13,6 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
     const [activeIndex, setActiveIndex] = useState(0);
     const textareaRef = useRef([]);
     const titleRef = useRef(null);
-    const [changeTime, setChangeTime] = useState('');
   
 
 
@@ -126,7 +125,8 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
             id: Date.now(),
             type: 'checkbox',
             text: '',
-            checked: false
+            checked: false,
+            completedAt: null
         };
 
         setNoteContent(prev => {
@@ -214,8 +214,13 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
         setNoteContent(prev =>
             prev.map(block =>
                 block.id === id
-                    ? { ...block, checked: !block.checked }
-                    : block
+                ?  { ...block,
+                    checked: !block.checked,
+                    completedAt: 
+                        !block.checked
+                        ? block.completedAt || new Date().toISOString()
+                        : block.completedAt
+                } : block
             )
         );
     };
