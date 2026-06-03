@@ -8,6 +8,8 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
     const [isOpen, setIsOpen] = useState(false);
     const [isProject, setIsProject] = useState(false);
     const inputRef = useRef(null);
+    const [deleteWarning, setDeleteWarning] = useState(false);
+    const [folderToDelete, setFolderToDelete] = useState(null);
 
 
 
@@ -28,12 +30,15 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
 
 
 
-    const deleteFolder = (id) =>{
-        setFolders(prev => prev.filter(folder => folder.id !== id));
-        setNotes(prev => prev.filter(n => n.folder !== id));
-      if (id === activeFolder) {
+    const deleteFolder = () =>{
+      if(!folderToDelete) return;
+        setFolders(prev => prev.filter(folder => folder.id !== folderToDelete));
+        setNotes(prev => prev.filter(n => n.folder !== folderToDelete));
+      if (folderToDelete === activeFolder) {
         setActiveFolder(1);
-      }
+      };
+
+      setFolderToDelete(null);
     };
 
 
@@ -93,7 +98,7 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
             className='add-input'
             />
             <button className='add-folder' onClick={addFolder}>Add folder</button>
-            <button className='close-btn' onClick={() => {setIsOpen(false); setIsProject(false)}}>✕</button>
+            <button className='close-btn' onClick={() => {setIsOpen(false); setIsProject(false)}}>✕</button> 
         </div>
               )}
             <div className='all-folders'>
@@ -105,11 +110,22 @@ export default function Folders ({ folders, setFolders, activeFolder, setActiveF
                         { folder.project === true ? 'P | ' + folder.name : folder.name}
                     </p>
                     { folder.id !== 1 && (
-                    <button className='close-btn' onClick={() => deleteFolder(folder.id)}>✕</button>
+                    <button className='close-btn'  onClick={() => {setFolderToDelete(folder.id); setDeleteWarning(true)}}>✕</button>
                     )}
                   </div>
                 ))}
             </div>
+            { deleteWarning && (
+              <div className={`backdrop ${ deleteWarning ? 'show' : ''}`} onClick={() => {setDeleteWarning(false); setFolderToDelete(null);}}>
+                <div className='delete-warning'>
+                    <p className='dw-text'> Are you sure you wanna delete this folder?</p>
+                    <div className='dw-btns'>
+                    <button className='dw-delete' onClick={() => {deleteFolder(); setDeleteWarning(false); setBackdropOpen(false)}}>Delete</button>
+                    <button className='dw-cancel' onClick={() => {setDeleteWarning(false); setFolderToDelete(null)}}>Cancel</button>
+                    </div>
+                </div>
+              </div>
+            )}
             </div>
         </div>
     )

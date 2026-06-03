@@ -35,6 +35,7 @@
     display: flex;
     flex-direction: row;
     gap:0.7rem;
+    padding-right: 0.5rem;
     max-width:40rem;
     overflow-x: auto;
     scrollbar-width:none;
@@ -84,6 +85,83 @@
     color: var(--yellow-highlight);
     text-shadow: 1px 1px 7px var(--text);
     scale: 1.2;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all ease 0.3s;
+}
+
+.backdrop.show{
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-warning{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 42vh;
+    right: 37vw;
+    width: 20rem;
+    height: 7rem;
+    background-color: var(--cards);
+    color: var(--text);
+    font-size: 1.2rem;
+    border-radius: 20px;
+    padding: 1rem;
+    z-index: 101;
+}
+
+.dw-btns{
+    display: flex;
+    gap: 5rem;
+}
+
+.dw-delete, .dw-cancel{
+    width: 5rem;
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    border-radius: 7px;
+    border: 1px, solid, var(--dark-elements);
+    box-shadow: 2px 2px 7px var(--dark-elements);
+}
+
+.dw-delete{
+    background-color: rgb(151, 0, 0);
+    color: white;
+}
+
+.dw-delete:hover{
+    background-color: rgb(105, 2, 2);
+}
+
+.dw-delete:active{
+    box-shadow: inset 2px 2px 4px var(--dark-elements);
+}
+
+.dw-cancel{
+    background: transparent;
+    color: var(--text);
+}
+
+.dw-cancel:hover{
+    background-color: var(--hover);
+}
+
+.dw-cancel:active{
+    box-shadow: inset 2px 2px 4px var(--dark-elements);
 }
 
 .folder-input{

@@ -13,6 +13,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
     const [activeIndex, setActiveIndex] = useState(0);
     const textareaRef = useRef([]);
     const titleRef = useRef(null);
+    const [deleteWarning, setDeleteWarning] = useState(false);
   
 
 
@@ -336,7 +337,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
             <div className='menu'>
                 <button className='menu-btn' onClick={() => { if (selectedNote) {pinNotes(selectedNote.id);} setMenuOpen(false)}}>{selectedNote.pinned === true ? 'Unpin note' : 'Pin note'}</button>
                 <button className='menu-btn' onClick={() => {setMoveTo(true); setMenuOpen(false)}}>Move to →</button>
-                <button className='menu-btn' onClick={deleteNote}>Delete</button>
+                <button className='menu-btn' onClick={() => {setDeleteWarning(true); setMenuOpen(false)}}>Delete</button>
             </div>
         )}
 
@@ -407,7 +408,7 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
                     handleEnter(e, index);
                     handleBackspace(e, block, index);
                 }}
-                placeholder={ index === 0 && block.length < 2 ? 'Write something...' : ''}
+                placeholder={ index === 0 && noteContent.length < 2 ? 'Write something...' : ''}
                 className={
                     block.type === 'checkbox' && block.checked
                     ? 'text-block-checked'
@@ -472,5 +473,16 @@ export default function Notes({ activeFolder, folders, notes, setNotes, external
         </div>
     </>
         )}
+        { deleteWarning && (
+              <div className={`backdrop ${ deleteWarning ? 'show' : ''}`} onClick={() => setDeleteWarning(false)}>
+                <div className='delete-warning'>
+                    <p className='dw-text'> Are you sure you wanna delete this note?</p>
+                    <div className='dw-btns'>
+                    <button className='dw-delete' onClick={() => {deleteNote(); setDeleteWarning(false)}}>Delete</button>
+                    <button className='dw-cancel' onClick={() => setDeleteWarning(false)}>Cancel</button>
+                    </div>
+                </div>
+              </div>
+            )}
     </div>
 );}
